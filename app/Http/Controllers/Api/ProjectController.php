@@ -14,7 +14,7 @@ class ProjectController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'projects' => Project::with(['type', 'technologies'])->paginate(10)
+            'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->paginate(5)
         ]);
     }
 
@@ -22,7 +22,7 @@ class ProjectController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'projects' => Type::with('projects')->paginate(10)
+            'projects' => Type::with('projects')->orderByDesc('id')->paginate(5)
         ]);
     }
 
@@ -30,7 +30,7 @@ class ProjectController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'projects' => Technology::with('projects')->paginate(10)
+            'projects' => Technology::with('projects')->orderByDesc('id')->paginate(5)
         ]);
     }
 }
