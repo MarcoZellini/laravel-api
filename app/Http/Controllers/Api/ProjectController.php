@@ -23,4 +23,13 @@ class ProjectController extends Controller
             'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->take(3)->get()
         ]);
     }
+
+    public function single_project($slug)
+    {
+        $project = Project::with(['type', 'technologies'])->where('slug', $slug)->first();
+        return response()->json([
+            'success' => true,
+            'project' => $project
+        ]);
+    }
 }
