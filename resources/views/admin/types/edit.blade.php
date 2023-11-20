@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Edit Type ' . $type->id)
+
+
 @section('content')
 
     @if ($errors->any())

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Edit Project ' . $project->id)
+
 @section('content')
 
     @if ($errors->any())

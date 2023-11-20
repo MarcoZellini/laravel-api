@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Create Technology')
+
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">

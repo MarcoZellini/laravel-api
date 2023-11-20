@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Types')
+
 @section('content')
     <div class="container-md">
         <div class="row">

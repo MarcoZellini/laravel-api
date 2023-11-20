@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Trashed Technologies')
+
 @section('content')
     <div class="container">
         <div class="row">

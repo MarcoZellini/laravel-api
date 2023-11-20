@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Dashboard')
+
 @section('content')
     <div class="container-md dashboard">
         <h2 class="fs-4 text-secondary my-4 text-capitalize">

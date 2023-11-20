@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Type ' . $type->id)
+
+
 @section('content')
     <div class="p-5 mb-4 rounded-3 show">
         <div class="container-fluid py-lg-5">

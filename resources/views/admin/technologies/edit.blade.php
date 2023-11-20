@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Admin - Edit Technology ' . $technology->id)
+
 @section('content')
 
     @if ($errors->any())
