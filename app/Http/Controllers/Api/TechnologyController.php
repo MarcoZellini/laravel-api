@@ -15,4 +15,13 @@ class TechnologyController extends Controller
             'technologies' => Technology::with('projects')->get()
         ]);
     }
+
+    public function technology_projects($slug)
+    {
+        $projects = Technology::with(['projects'])->where('slug', $slug)->first()->projects()->paginate(6);
+        return response()->json([
+            'status' => 'success',
+            'technologies' => $projects
+        ]);
+    }
 }

@@ -25,3 +25,4 @@ Route::get('/projects/latest', [ProjectController::class, 'latest_projects']);
 Route::get('/projects/{project:slug}', [ProjectController::class, 'single_project']);
 Route::get('/types', [TypeController::class, 'types']);
 Route::get('/technologies', [TechnologyController::class, 'technologies']);
+Route::get('/technologies/{technology:slug}/projects', [TechnologyController::class, 'technology_projects']);
