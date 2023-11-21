@@ -12,7 +12,7 @@ class ProjectController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->paginate(5)
+            'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->paginate(6)
         ]);
     }
 
@@ -27,9 +27,16 @@ class ProjectController extends Controller
     public function single_project($slug)
     {
         $project = Project::with(['type', 'technologies'])->where('slug', $slug)->first();
-        return response()->json([
-            'success' => true,
-            'project' => $project
-        ]);
+        if ($project) {
+            return response()->json([
+                'success' => true,
+                'project' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'project' => 'Ops! Project not Found.'
+            ]);
+        }
     }
 }
