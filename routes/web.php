@@ -5,9 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\GitHubController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Lead;
 use App\Mail\NewLeadEmail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,7 @@ Route::get('/mailable', function () {
     $lead = Lead::find(1);
     return new NewLeadEmail($lead);
 });
+
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -49,6 +52,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('technologies', TechnologyController::class)->parameters([
         'technologies' => 'technology:slug'
     ]);
+
+    Route::get('/repositories', [GitHubController::class, 'fetchRepositories'])->name('repositories');
 });
 
 Route::middleware('auth')->group(function () {
