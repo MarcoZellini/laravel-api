@@ -14,11 +14,8 @@ class GitHubController extends Controller
     {
         $author = env('GITHUB_USERNAME', 'MarcoZellini');
 
-
         //sostituire la richiesta quando le chiamate a github si sbloccano
-        $response = Http::withoutVerifying()->get("https://api.github.com/users/francesco-munafo/repos?sort=created&direction=asc&per_page=100");
-        //$response = Http::withoutVerifying()->get("https://5247f9c2-b00d-4d81-b23b-aaf483dd9534.mock.pstmn.io/https://api.github.com/users/{$author}/repos?per_page=100");
-
+        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get("https://api.github.com/users/francesco-munafo/repos?sort=created&direction=asc&per_page=100");
 
         $repositories = $response->json();
 
@@ -38,28 +35,26 @@ class GitHubController extends Controller
             );
 
             //sostituire la richiesta quando le chiamate a github si sbloccano
-            $lang_response = Http::withoutVerifying()->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");
-            //$lang_response = Http::withoutVerifying()->get("https://5247f9c2-b00d-4d81-b23b-aaf483dd9534.mock.pstmn.io/https://api.github.com/repos/MarcoZellini/laravel-boolean/languages");
+            $lang_response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");
 
-            //associative array ['technology_name => bytes]
-            $project_technologies = $lang_response->json();
+            if ($lang_response->successful()) {
+                $languages = array_keys($lang_response->json());
+                //$languagesPercentage = array_values($lang_response->json()); //TODO GET PERCENTAGE
 
-            foreach ($project_technologies as $technology_name => $bytes) {
-                $technology = Technology::updateOrCreate(
-                    ['name' => $technology_name],
-                    [
-                        'name' => $technology_name,
-                        'slug' => Technology::generateSlug($technology_name)
-                    ],
-                );
+                $technologyIds = [];
 
-                $technology_ids[] = Technology::where('slug', $technology->slug)->first()->id;
+                foreach ($languages as $language) {
+                    $technology = Technology::firstOrCreate(
+                        ['name' => $language],
+                        ['slug' => Technology::generateSlug($language)]
+                    );
+                    $technologyIds[] = $technology->id;
+                }
+                $project->technologies()->sync($technologyIds);
+
+                //TODO: Generate a project type based on languages
+                $project->type_id = rand(1, 5);
             }
-
-            $project->technologies()->sync($technology_ids);
-
-            //TODO: Generate a project type based on languages
-            $project->type_id = rand(1, 5);
         }
         return to_route('admin.projects.index')->with('message', 'Fetch Data From GitHub Successfully');
     }
