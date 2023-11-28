@@ -1,6 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
-.projects_table {
+.projects_table,
+.trashed_table {
     img {
         object-fit: cover;
         object-position: top;

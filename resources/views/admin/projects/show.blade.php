@@ -26,7 +26,8 @@
                             </div>
                             <div>
                                 @foreach ($project->technologies as $technology)
-                                    <a href="{{ route('admin.technologies.show', $technology) }}">
+                                    <a href="{{ route('admin.technologies.show', $technology) }}"
+                                        class="text-decoration-none">
                                         <span class="badge rounded-pill text-bg-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                 fill="currentColor" class="bi bi-tag" viewBox="0 0 16 16">

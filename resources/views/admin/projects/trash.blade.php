@@ -49,7 +49,7 @@
                         @endif
 
                         <div class="table-responsive dashboard_table">
-                            <table class="table table-primary m-0 align-middle text-center">
+                            <table class="table trashed_table table-primary m-0 align-middle text-center">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
