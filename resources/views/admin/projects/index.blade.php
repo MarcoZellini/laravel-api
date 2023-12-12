@@ -82,7 +82,7 @@
                                             </td>
                                             <td>{{ $project->title }}</td>
                                             <td><small>{{ date($project->created_at) }}</small></td>
-                                            <td>
+                                            <td class>
                                                 <a class="btn btn-primary m-1 mx-sm-0 mb-sm-0"
                                                     href="{{ route('admin.projects.show', $project->slug) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
